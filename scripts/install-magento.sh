@@ -99,7 +99,7 @@ then
   then
     git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
     git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
-    git remote rm origin && git remote add origin "git@$GITLAB_URL:${CI_PROJECT_PATH}.git"
+    git remote rm origin && git remote add origin "[git@${CI_SERVER_SHELL_SSH_HOST}:${CI_SERVER_SHELL_SSH_PORT}]:${CI_PROJECT_PATH}.git"
 
   else
     git config user.name github-actions
@@ -113,7 +113,7 @@ then
   git commit -m "add magento project to github repo"
   if [ -n "$GITLAB_USER_NAME" ]
   then
-    git remote rm origin && git remote add origin git@gitlab.com:$CI_PROJECT_PATH.git
+    git remote rm origin && git remote add origin "[git@${CI_SERVER_SHELL_SSH_HOST}:${CI_SERVER_SHELL_SSH_PORT}]:${CI_PROJECT_PATH}.git"
     git push origin HEAD:$CI_COMMIT_REF_NAME -o ci.skip
   else
     git push
